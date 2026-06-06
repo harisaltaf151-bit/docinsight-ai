@@ -53,7 +53,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ message: "Missing API key. Connect a provider first." }, { status: 401 });
   }
   const meta = PROVIDER_META[provider];
-  if (!meta.models.includes(model) && model !== meta.defaultModel) {
+  if (!meta.models.includes(model as any) && model !== meta.defaultModel) {
     return NextResponse.json(
       { message: `Unsupported model: ${model}`, supported: meta.models },
       { status: 422 },
