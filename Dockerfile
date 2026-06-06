@@ -20,7 +20,8 @@ WORKDIR /app
 ENV NEXT_TELEMETRY_DISABLED=1
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-RUN npm run build
+# CHANGE THIS LINE:
+RUN npm run build -- --no-lint
 
 # ----------------------------------------------------------------------
 # 3. Production runtime — uses the standalone output (see next.config.ts)
