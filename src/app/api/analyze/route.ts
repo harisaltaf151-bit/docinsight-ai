@@ -59,7 +59,7 @@ export async function POST(req: Request) {
       { status: 422 },
     );
   }
-  const resolvedModel = meta.models.includes(model) ? model : meta.defaultModel;
+  const resolvedModel = meta.models.includes(model as any) ? model : meta.defaultModel;
 
   // Document text extraction ─────────────────────────────────────────────
   let documentText: string;
