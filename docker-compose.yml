@@ -1,0 +1,27 @@
+# Local development overrides for the Next.js app.
+# Use: `docker compose up --build`
+#
+# The image is multi-stage (see Dockerfile). For production you typically
+# `docker build -t docinsight-ai .` and run a single container; this compose
+# file is a convenience wrapper that also exposes the dev server.
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: docinsight-ai:local
+    container_name: docinsight-ai
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: production
+      PORT: "3000"
+      HOSTNAME: "0.0.0.0"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1:3000/api/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
