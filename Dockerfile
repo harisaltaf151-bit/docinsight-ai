@@ -8,7 +8,7 @@ WORKDIR /app
 RUN apk add --no-cache libc6-compat
 COPY package.json package-lock.json* ./
 RUN \
-  if [ -f package-lock.json ]; then npm ci; \
+  if [ -f package-lock.json ]; then npm install --legacy-peer-deps; \
   else echo "Lockfile not found." && exit 1; \
   fi
 
